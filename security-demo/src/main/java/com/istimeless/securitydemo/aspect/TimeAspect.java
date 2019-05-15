@@ -14,17 +14,17 @@ import java.util.Arrays;
 @Component
 public class TimeAspect {
     
-    @Around("execution(* com.istimeless.securitydemo.controller.UserController.*(..))")
-    public Object as(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("time aspect start");
-        long start = System.currentTimeMillis();
-        Object[] args = pjp.getArgs();
-        Arrays.stream(args).forEach(arg -> System.out.println("arg is " + arg));
-        Object proceed = pjp.proceed();
-        long end = System.currentTimeMillis();
-        long cost = end - start;
-        System.out.println("time aspect cost:" + cost);
-        System.out.println("time aspect end");
-        return proceed;
-    }
+//    @Around("execution(* com.istimeless.securitydemo.controller.UserController.*(..))")
+//    public Object as(ProceedingJoinPoint pjp) throws Throwable {
+//        System.out.println("time aspect start");
+//        long start = System.currentTimeMillis();
+//        Object[] args = pjp.getArgs();
+//        Arrays.stream(args).forEach(arg -> System.out.println("arg is " + arg));
+//        Object proceed = pjp.proceed();
+//        long end = System.currentTimeMillis();
+//        long cost = end - start;
+//        System.out.println("time aspect cost:" + cost);
+//        System.out.println("time aspect end");
+//        return proceed;
+//    }
 }

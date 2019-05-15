@@ -25,21 +25,21 @@ public class WebConfig extends WebMvcConfigurationSupport {
     @Resource
     private TimeInterceptor timeInterceptor;
     
-    @Bean
-    public FilterRegistrationBean<TimeFilter> timeFilter(){
-        FilterRegistrationBean<TimeFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-        TimeFilter timeFilter = new TimeFilter();
-        filterRegistrationBean.setFilter(timeFilter);
-        List<String> urls = new ArrayList<>();
-        urls.add("/*");
-        filterRegistrationBean.setUrlPatterns(urls);
-        return filterRegistrationBean;
-    }
+//    @Bean
+//    public FilterRegistrationBean<TimeFilter> timeFilter(){
+//        FilterRegistrationBean<TimeFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+//        TimeFilter timeFilter = new TimeFilter();
+//        filterRegistrationBean.setFilter(timeFilter);
+//        List<String> urls = new ArrayList<>();
+//        urls.add("/*");
+//        filterRegistrationBean.setUrlPatterns(urls);
+//        return filterRegistrationBean;
+//    }
 
-    @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(timeInterceptor);
-    }
+//    @Override
+//    protected void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(timeInterceptor);
+//    }
 
     @Override
     protected void configureAsyncSupport(AsyncSupportConfigurer configurer) {
