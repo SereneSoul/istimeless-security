@@ -1,4 +1,4 @@
-package com.istimeless.securitydemo.config;
+package com.istimeless.securitycore.config;
 
 import org.beetl.sql.core.ClasspathLoader;
 import org.beetl.sql.core.Interceptor;
