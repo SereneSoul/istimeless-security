@@ -1,4 +1,4 @@
-package com.istimeless.securitycore.config;
+package com.istimeless.securitycore.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
