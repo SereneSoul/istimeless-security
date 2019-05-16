@@ -65,10 +65,4 @@ public class BrowserSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable();
                 
     }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(myUserDetailsService);
-//    }
-    
 }
