@@ -3,6 +3,7 @@ package com.istimeless.securitydemo.configuration;
 import com.istimeless.securitydemo.interceptor.TimeInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -54,5 +55,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
+        argumentResolvers.add(new AuthenticationPrincipalArgumentResolver());
+        super.addArgumentResolvers(argumentResolvers);
     }
 }
