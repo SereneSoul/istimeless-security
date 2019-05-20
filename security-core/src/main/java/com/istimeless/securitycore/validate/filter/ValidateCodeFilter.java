@@ -2,7 +2,7 @@ package com.istimeless.securitycore.validate.filter;
 
 import com.istimeless.securitycore.common.Constant;
 import com.istimeless.securitycore.properties.SecurityProperties;
-import com.istimeless.securitycore.validate.code.ImageCode;
+import com.istimeless.securitycore.validate.code.image.ImageCode;
 import com.istimeless.securitycore.validate.exception.ValidateCodeException;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Sets;
@@ -41,8 +41,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        Collections.addAll(urls, StringUtils.splitByWholeSeparatorPreserveAllTokens(
-                securityProperties.getCode().getImage().getUrl(), ","));
+        String url = securityProperties.getCode().getImage().getUrl();
+        if(StringUtils.isNoneBlank(url)){
+            Collections.addAll(urls, StringUtils.splitByWholeSeparatorPreserveAllTokens(url, ","));
+        }
         urls.add(Constant.Login.LOGIN_PROCESSING_URL);
     }
 

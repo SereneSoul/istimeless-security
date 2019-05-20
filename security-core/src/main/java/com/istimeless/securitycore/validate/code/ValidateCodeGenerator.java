@@ -1,11 +1,11 @@
 package com.istimeless.securitycore.validate.code;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * @author lijiayin
  */
 public interface ValidateCodeGenerator {
 
-    ImageCode generate(HttpServletRequest request);
+    ValidateCode generate(ServletWebRequest request);
 }

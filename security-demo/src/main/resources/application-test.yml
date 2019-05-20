@@ -13,11 +13,11 @@ server:
 istimeless:
   security:
     browser:
-      loginPage: /demologin.html
+#      loginPage: /demologin.html
       loginType: JSON
-    code:
-      image:
-        length: 6
-        width: 30
-        url: /user,/user/*
+#    code:
+#      image:
+#        length: 6
+#        width: 30
+#        url: /user,/user/*
   

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo登录页面</title>
+</head>
+<body>
+    <form action="/authentication/phone" method="post">
+        <table>
+            <tr>
+                <td>手机号：</td>
+                <td><input type="text" name="phone" value="17602519657"></td>
+            </tr>
+            <tr>
+                <td>验证码：</td>
+                <td>
+                    <input type="text" name="smsCode">
+                    <a href="/code/sms?phone=17602519657">发送验证码</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">登录</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

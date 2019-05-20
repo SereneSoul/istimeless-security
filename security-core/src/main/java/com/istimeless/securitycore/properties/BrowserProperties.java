@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BrowserProperties {
     
-    private String loginPage = "/login.html";
+    private String loginPage = "/formLogin.html";
     
     private LoginType loginType = LoginType.JSON;
+    
+    private Integer rememberMeSeconds = 3600;
 }

@@ -1,12 +1,12 @@
-package com.istimeless.securitycore.validate.code.impl;
+package com.istimeless.securitycore.validate.code.image.impl;
 
 import com.istimeless.securitycore.properties.SecurityProperties;
-import com.istimeless.securitycore.validate.code.ImageCode;
+import com.istimeless.securitycore.validate.code.image.ImageCode;
 import com.istimeless.securitycore.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,10 +41,10 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     }
 
     @Override
-    public ImageCode generate(HttpServletRequest request) {
-        int width = ServletRequestUtils.getIntParameter(request, "width",
+    public ImageCode generate(ServletWebRequest request) {
+        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width",
                 securityProperties.getCode().getImage().getWidth());
-        int height = ServletRequestUtils.getIntParameter(request, "height",
+        int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height",
                 securityProperties.getCode().getImage().getHeight());
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
