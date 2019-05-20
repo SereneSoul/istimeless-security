@@ -13,15 +13,15 @@ import javax.annotation.Resource;
  * @author lijiayin
  */
 @Component
-public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
+public class SmsValidateCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
 
     @Resource
     private SmsCodeSender smsCodeSender;
     
     @Override
     protected void send(ServletWebRequest request, ValidateCode validateCode) throws Exception {
-        String phone = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "phone");
+        String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "mobile");
         String code = validateCode.getCode();
-        smsCodeSender.send(phone, code);
+        smsCodeSender.send(mobile, code);
     }
 }

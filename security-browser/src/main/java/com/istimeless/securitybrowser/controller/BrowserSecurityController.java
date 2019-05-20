@@ -1,11 +1,10 @@
 package com.istimeless.securitybrowser.controller;
 
 import com.istimeless.securitybrowser.dto.SimpleResponse;
-import com.istimeless.securitycore.common.Constant;
+import com.istimeless.securitycore.common.SecurityConstants;
 import com.istimeless.securitycore.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -49,7 +48,7 @@ public class BrowserSecurityController {
         if(savedRequest != null){
             String target = savedRequest.getRedirectUrl();
             log.info("引发跳转的请求是：{}", target);
-            if(StringUtils.endsWithIgnoreCase(target, Constant.HTML)){
+            if(StringUtils.endsWithIgnoreCase(target, ".html")){
                 redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
             }
         }

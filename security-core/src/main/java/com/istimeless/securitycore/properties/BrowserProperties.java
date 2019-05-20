@@ -1,6 +1,7 @@
 package com.istimeless.securitycore.properties;
 
 import com.istimeless.securitycore.common.LoginType;
+import com.istimeless.securitycore.common.SecurityConstants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BrowserProperties {
     
-    private String loginPage = "/formLogin.html";
+    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
     
     private LoginType loginType = LoginType.JSON;
     

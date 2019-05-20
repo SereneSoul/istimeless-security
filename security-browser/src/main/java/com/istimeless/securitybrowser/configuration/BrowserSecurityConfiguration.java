@@ -1,21 +1,18 @@
 package com.istimeless.securitybrowser.configuration;
 
-import com.istimeless.securitybrowser.authentication.MyAuthenticationFailureHandler;
-import com.istimeless.securitybrowser.authentication.MyAuthenticationSuccessHandler;
 import com.istimeless.securitybrowser.service.MyUserDetailsService;
-import com.istimeless.securitycore.common.Constant;
+import com.istimeless.securitycore.authentication.AbstractChannelSecurityConfig;
+import com.istimeless.securitycore.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.istimeless.securitycore.common.SecurityConstants;
 import com.istimeless.securitycore.properties.SecurityProperties;
-import com.istimeless.securitycore.validate.filter.ValidateCodeFilter;
+import com.istimeless.securitycore.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -28,22 +25,22 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
-public class BrowserSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfiguration extends AbstractChannelSecurityConfig {
     
     @Resource
     private SecurityProperties securityProperties;
-    
-    @Resource
-    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
-    
-    @Resource
-    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
     
     @Resource
     private MyUserDetailsService myUserDetailsService;
     
     @Resource
     private DataSource dataSource;
+    
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+    
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
     
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -59,32 +56,32 @@ public class BrowserSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
         
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                .loginPage("/authentication/require")
-                .loginProcessingUrl(Constant.Login.LOGIN_PROCESSING_URL)
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(myAuthenticationFailureHandler)
-                .permitAll()
+        applyPasswordAuthenticationConfig(http);
+        
+        http.apply(validateCodeSecurityConfig)
                 .and()
-                .rememberMe()
+            .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+            .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .userDetailsService(myUserDetailsService)
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .and()
-                .authorizeRequests()
-                .antMatchers("/error", "/code/*", securityProperties.getBrowser().getLoginPage())
+            .authorizeRequests()
+                .antMatchers(
+                        "/error",
+                        SecurityConstants.DEFAULT_REQUIRE_AUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM,
+                        securityProperties.getBrowser().getLoginPage(),
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf()
+            .csrf()
                 .disable();
-                
     }
 }
