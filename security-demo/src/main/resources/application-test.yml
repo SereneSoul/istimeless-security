@@ -12,6 +12,10 @@ server:
   
 istimeless:
   security:
+    social:
+      qq:
+        app-id: 123
+        app-secret: 456
     browser:
 #      loginPage: /demologin.html
       loginType: JSON

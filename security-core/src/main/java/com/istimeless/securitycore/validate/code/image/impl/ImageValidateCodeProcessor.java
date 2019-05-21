@@ -1,6 +1,5 @@
 package com.istimeless.securitycore.validate.code.image.impl;
 
-import com.istimeless.securitycore.common.SecurityConstants;
 import com.istimeless.securitycore.validate.code.image.ImageCode;
 import com.istimeless.securitycore.validate.code.impl.AbstractValidateCodeProcessor;
 import org.springframework.stereotype.Component;

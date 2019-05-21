@@ -1,6 +1,5 @@
 package com.istimeless.securitybrowser.configuration;
 
-import com.istimeless.securitybrowser.service.MyUserDetailsService;
 import com.istimeless.securitycore.authentication.AbstractChannelSecurityConfig;
 import com.istimeless.securitycore.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.istimeless.securitycore.common.SecurityConstants;
@@ -11,10 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -30,8 +31,8 @@ public class BrowserSecurityConfiguration extends AbstractChannelSecurityConfig 
     @Resource
     private SecurityProperties securityProperties;
     
-    @Resource
-    private MyUserDetailsService myUserDetailsService;
+    @Autowired
+    private UserDetailsService myUserDetailsService;
     
     @Resource
     private DataSource dataSource;
@@ -41,6 +42,9 @@ public class BrowserSecurityConfiguration extends AbstractChannelSecurityConfig 
     
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+    
+    @Autowired
+    private SpringSocialConfigurer istimelessSocialSecurityConfig;
     
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -62,6 +66,8 @@ public class BrowserSecurityConfiguration extends AbstractChannelSecurityConfig 
         http.apply(validateCodeSecurityConfig)
                 .and()
             .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+            .apply(istimelessSocialSecurityConfig)
                 .and()
             .rememberMe()
                 .tokenRepository(persistentTokenRepository())

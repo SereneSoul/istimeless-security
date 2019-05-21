@@ -1,4 +1,4 @@
-package com.istimeless.securitybrowser.service;
+package com.istimeless.securitydemo.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -24,8 +27,22 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         log.info("登录用户名：{}", s);
         //判断用户是否被冻结
-        return new User(s, passwordEncoder.encode("123456"),
+        return buildUser(s);
+    }
+    
+
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        log.info("社交登录用户名：{}", userId);
+        //判断用户是否被冻结
+        return buildUser(userId);
+    }
+    
+    
+    private SocialUserDetails buildUser(String user){
+        return new SocialUser(user, passwordEncoder.encode("123456"),
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
+    
 }
