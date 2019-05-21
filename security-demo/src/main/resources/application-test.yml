@@ -13,9 +13,11 @@ server:
 istimeless:
   security:
     social:
+      filterProcessesUrl: /socialLogin
       qq:
         app-id: 123
         app-secret: 456
+        providerId: qq
     browser:
 #      loginPage: /demologin.html
       loginType: JSON

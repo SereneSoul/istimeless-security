@@ -44,7 +44,7 @@ public class BrowserSecurityConfiguration extends AbstractChannelSecurityConfig 
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
     
     @Autowired
-    private SpringSocialConfigurer istimelessSocialSecurityConfig;
+    private SpringSocialConfigurer isTimelessSocialSecurityConfig;
     
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -67,7 +67,7 @@ public class BrowserSecurityConfiguration extends AbstractChannelSecurityConfig 
                 .and()
             .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
-            .apply(istimelessSocialSecurityConfig)
+            .apply(isTimelessSocialSecurityConfig)
                 .and()
             .rememberMe()
                 .tokenRepository(persistentTokenRepository())
