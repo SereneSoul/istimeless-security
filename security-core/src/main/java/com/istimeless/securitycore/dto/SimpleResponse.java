@@ -1,4 +1,4 @@
-package com.istimeless.securitybrowser.dto;
+package com.istimeless.securitycore.dto;
 
 import lombok.*;
 

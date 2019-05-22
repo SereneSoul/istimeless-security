@@ -1,7 +1,6 @@
 package com.istimeless.securitybrowser.controller;
 
-import com.istimeless.securitybrowser.dto.SimpleResponse;
-import com.istimeless.securitycore.common.SecurityConstants;
+import com.istimeless.securitycore.dto.SimpleResponse;
 import com.istimeless.securitycore.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

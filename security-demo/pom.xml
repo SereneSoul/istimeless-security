@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.istimeless</groupId>
-            <artifactId>security-browser</artifactId>
+            <artifactId>security-app</artifactId>
             <version>${security.version}</version>
         </dependency>
         <dependency>

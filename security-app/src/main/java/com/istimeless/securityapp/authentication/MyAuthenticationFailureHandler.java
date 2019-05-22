@@ -1,4 +1,4 @@
-package com.istimeless.securitybrowser.authentication;
+package com.istimeless.securityapp.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.istimeless.securitycore.dto.SimpleResponse;

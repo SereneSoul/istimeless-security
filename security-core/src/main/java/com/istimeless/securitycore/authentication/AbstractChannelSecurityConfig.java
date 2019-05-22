@@ -24,5 +24,6 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
                 .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler);
+        
     }
 }
